@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>ECharts</title>
+  <!-- 引入 echarts.js -->
+  <script src="echarts.min.js"></script>
+</head>
+
+<body>
+  <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+  <div id="main" style="width: 600px;height:600px;"></div>
+
+  <script type="text/javascript">
+    var chartDom = document.getElementById('main');
+    var myChart = echarts.init(chartDom);
+    var sum = 100;
+    var data = [
+      {
+        name: 'FrontEnd',
+        children: [{
+          name: 'F1',
+          value: 5
+        },
+        {
+          name: 'F2',
+          value: 10
+        },
+        ],
+      },
+      {
+        name: 'BackEnd',
+        children: [{
+          name: 'B1',
+          value: 7
+        },
+        {
+          name: 'B2',
+          value: 8
+        },
+        ],
+      },
+      {
+        name: 'Retire',
+        children: [{
+          name: 'r1',
+          value: 30
+        },
+        {
+          name: 'r2',
+          value: 20
+        },
+        ],
+      },
+      {
+        name: 'Mispridict',
+        children: [{
+          name: 'm1',
+          value: 10
+        },
+        {
+          name: 'm2',
+          value: 10
+        },
+        ],
+      }
+    ];
+
+    var option = {
+      title: {
+        text: 'TMA分析',
+        subtext: 'Coremark',
+        left: 'center'
+      },
+      tooltip: {
+        formatter: (params) => {
+          let str = '';
+          params.treePathInfo.forEach((item) => {
+            str = item.name + ':' + (item.value / sum) * 100 + '%';
+          });
+          return str;
+        },
+      },
+      legend: {
+        orient: 'vertical',
+        left: 0,
+        data: [
+          'FrontEnd',
+          'BackEnd',
+          'Retire',
+          'Mispridict',
+          'F1', 'F2',
+          'B1', 'B2',
+          'r1', 'r2',
+          'm1', 'm2',
+        ],
+      },
+      series: [
+        {
+          opacity: 0,
+          type: 'pie',
+          roseType: 'area',
+          radius: [0, '0%'],
+          data: [
+            { name: 'FrontEnd', itemStyle: { color: '#5B8FF9' } },
+            { name: 'BackEnd' },
+            { name: 'Retire' },
+            { name: 'Mispridict' },
+          ],
+        },
+        {
+          type: 'sunburst',
+          data: data,
+          radius: [60, '70%'],
+          itemStyle: {
+            borderRadius: 7,
+            borderWidth: 2
+          },
+        },
+      ],
+    };
+
+    option && myChart.setOption(option);
+  </script>
+</body>
