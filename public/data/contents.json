@@ -1,0 +1,24 @@
+[
+  {
+    "name": "Coremork",
+    "path": "./data/Coremork",
+    "hasData": true
+  },
+  {
+    "name": "MicroBench",
+    "path": "./data/MicroBench",
+    "hasData": false,
+    "children": [
+      {
+        "name": "MicroBench-1",
+        "path": "./data/MicroBench/MicroBench-1",
+        "hasData": true
+      },
+      {
+        "name": "MicroBench-2",
+        "path": "./data/MicroBench/MicroBench-2",
+        "hasData": true
+      }
+    ]
+  }
+]

@@ -1,0 +1,83 @@
+{
+  "echart_main": {
+    "height": "510px",
+    "title": "My Chart Main",
+    "layers": ["layer0","layer1","layer2","layer3"],
+    "totalValue": 100, 
+    "data": [
+      {
+        "name": "totalSlots",
+        "value": 100,
+        "layer": "layer0"
+      },
+      {
+        "name": "BackEnd",
+        "value": 30,
+        "layer": "layer1"
+     }
+    ]
+  },
+  "cards": [
+    {
+      "type": "text",
+      "head": "卡片标题-文字",
+      "body": "卡片正文卡片正文卡片正文"
+    },
+    {
+      "type": "image",
+      "head": "卡片标题-图片",
+      "path": "./data/Coremork/example.jfif"
+    },
+    {
+      "type": "image",
+      "head": "卡片标题-图片",
+      "path": "./data/Coremork/example.jfif",
+      "height": "200px"
+    },
+    {
+      "type": "gauge-percent",
+      "head": "卡片标题-单个数据百分比",
+      "name": "percent",
+      "percent": 35
+    },
+    {
+      "type": "gauge-percent",
+      "head": "卡片标题-单个数据百分比",
+      "name": "percent",
+      "total": 1234,
+      "part": 123
+    },
+    {
+      "type": "gauge-number",
+      "head": "卡片标题-单个数据数值",
+      "name": "number",
+      "value": 123,
+      "min": 0,
+      "max": 1234
+    },
+    {
+      "type": "description",
+      "head": "卡片标题-描述列表",
+      "items": [
+        {
+          "label": "Username",
+          "value": "kooriookami"
+        },
+        {
+          "label": "Place",
+          "value": "Suzhou"
+        },
+        {
+          "label": "Remarks",
+          "value": "School",
+          "isTag": true
+        },
+        {
+          "label": "Remarks",
+          "value": "School",
+          "isTag": true
+        }
+      ]
+    }
+  ]
+}
