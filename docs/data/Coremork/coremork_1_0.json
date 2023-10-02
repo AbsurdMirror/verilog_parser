@@ -1,6 +1,6 @@
 {
   "echart_main": {
-    "height": "510px",
+    "height": "570px",
     "title": "My Chart Main",
     "layers": ["layer0","layer1","layer2","layer3"],
     "totalValue": 100, 

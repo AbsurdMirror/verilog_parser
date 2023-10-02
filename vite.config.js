@@ -10,6 +10,9 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 export default defineConfig({
   // ...
   base: "./",
+  build: {
+    outDir:'./docs'
+  },
   plugins: [
     vue(),
     vueJsx({}),
