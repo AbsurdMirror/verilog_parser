@@ -1,0 +1,12 @@
+[
+  {
+    "version": "v1.0",
+    "path": "./data/Coremark/coremark_1_0.json",
+    "hasData": true
+  },
+  {
+    "version": "v1.1",
+    "path": "./data/Coremark/coremark_1_1.json",
+    "hasData": true
+  }
+]

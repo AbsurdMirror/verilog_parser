@@ -1,13 +1,13 @@
 <template>
   <div>
     <template v-for="item in routerList">
-      <el-sub-menu v-if="item.hasOwnProperty('children') && item.children.length > 0" :key="item.index">
+      <el-sub-menu v-if="item.hasOwnProperty('children') && item.children.length > 0" :key="item.index" :index="item.index">
         <template v-slot:title>
           <i class="el-icon-menu" style="padding-left:20px"></i>
           <span>{{ item.name }}</span>
         </template>
         <!--  如果有子级数据使用递归组件 -->
-        <myMenus :routerList="item.children"></myMenus>
+        <myMenus :routerList="item.children" @updataPages="clickMenuItem"></myMenus>
       </el-sub-menu>
       <el-menu-item v-else :key="item.index + 1" @click="clickMenuItem(item)">
         <i :class="item.icon" style="padding-left:20px"></i>
@@ -28,6 +28,9 @@ export default {
   methods: {
     clickMenuItem(val) {
       this.$emit('updataPages', val);//select事件触发后，自动触发showCityName事件
+    },
+    updataPages(val) {
+      this.clickMenuItem(val)
     }
   }
 }

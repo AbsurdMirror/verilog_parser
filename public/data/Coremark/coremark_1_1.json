@@ -1,0 +1,51 @@
+{
+  "echart_main": {
+    "height": "570px",
+    "title": "My Chart Main",
+    "layers": [
+      "layer0",
+      "layer1",
+      "layer2",
+      "layer3"
+    ],
+    "totalValue": 100,
+    "data": [
+      {
+        "name": "totalSlots",
+        "value": 100,
+        "layer": "layer0"
+      },
+      {
+        "name": "BackEnd",
+        "value": 30,
+        "layer": "layer1"
+      },
+      {
+        "name": "MemBound",
+        "value": 20,
+        "layer": "layer2"
+      },
+      {
+        "name": "L1Miss",
+        "value": 5,
+        "layer": "layer3"
+      }
+    ]
+  },
+  "cards": [
+    {
+      "type": "gauge-percent",
+      "head": "卡片标题-单个数据百分比",
+      "name": "percent",
+      "percent": 35
+    },
+    {
+      "type": "gauge-number",
+      "head": "卡片标题-单个数据数值",
+      "name": "number",
+      "value": 123,
+      "min": 0,
+      "max": 1234
+    }
+  ]
+}

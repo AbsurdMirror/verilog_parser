@@ -2,13 +2,33 @@
   <el-container>
     <el-aside style="background:#324057" width="200px">
       <div style="height: 60px; width: 100%;"></div>
-      <el-menu background-color="#324057" text-color="#fff" default-active="2" class="el-menu-vertical-demo"
-        @open="handleOpen" @close="handleClose">
+      <el-menu background-color="#324057" text-color="#fff" default-active="2" class="el-menu-vertical-demo">
         <myMenus :routerList="baseMenu" @updataPages="updataPages"></myMenus>
       </el-menu>
     </el-aside>
     <el-container>
-      <el-header>Header</el-header>
+      <el-header>
+        <el-page-header style="margin-top: 18px;" @back="goBack">
+          <template #content>
+            <span class="text-large font-600 mr-3"> {{ nowMenuItem.name }} </span>
+          </template>
+          <template #extra>
+            <div class="flex items-center">
+              <el-dropdown @command="selectVersion">
+                <el-button type="primary" plain>
+                  {{ nowVersion.version }}<el-icon class="el-icon--right"><arrow-down /></el-icon>
+                </el-button>
+                <template #dropdown>
+                  <el-dropdown-menu>
+                    <el-dropdown-item v-for="item in versions" :key="item.index" :command="item.index">{{ item.version
+                    }}</el-dropdown-item>
+                  </el-dropdown-menu>
+                </template>
+              </el-dropdown>
+            </div>
+          </template>
+        </el-page-header>
+      </el-header>
       <el-main style="background:#e5e9f2">
         <el-row :gutter="20">
           <el-col :span="12">
@@ -45,18 +65,22 @@ import myMenus from './components/my_menus.vue'
 import myCard from './components/my_card.vue'
 import axios from 'axios'  // 安装axios后引入
 import * as echarts from 'echarts'
-import { createApp, h } from 'vue'
+import { ElMessage } from 'element-plus';
 
 var echartMainGlobal;
 export default {
   data() {
     return {
       baseMenu: [],
+      nowMenuItem: {},
       Pages: [],
       Page: {},
       echartMainHeight: '600px',
       cards_0: [],
-      cards_1: []
+      cards_1: [],
+      beforeMenuItem: [],
+      versions: [],
+      nowVersion: {}
     }
   },
   components: {
@@ -64,37 +88,50 @@ export default {
     myCard
   },
   created: function () {
+  },
+  mounted: function () {
     axios.get('./data/contents.json').then((res) => {
       console.log('res.data = ', res.data)
       this.baseMenu = res.data
-    })
-  },
-  mounted: function () {
-    echartMainGlobal = echarts.init(document.getElementById('echart_main'));
-    echartMainGlobal.setOption({
-      xAxis: {
-        type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-      },
-      yAxis: {
-        type: 'value'
-      },
-      series: [{
-        data: [820, 932, 901, 934, 1290, 1330, 1320],
-        type: 'line'
-      }]
+      let nowMenuItem = this.baseMenu[0]
+      while (nowMenuItem.children) {
+        nowMenuItem = nowMenuItem.children[0]
+      }
+      this.nowMenuItem = nowMenuItem
+      echartMainGlobal = echarts.init(document.getElementById('echart_main'));
+      this.updataPages(this.nowMenuItem)
     })
   },
   methods: {
     updataPages(item) {
+      if (this.beforeMenuItem.length >= 10) {
+        this.beforeMenuItem.pop()
+      }
+      this.beforeMenuItem.push(this.nowMenuItem)
+      this.nowMenuItem = item
       console.log("path is ", item.path)
       axios.get(item.path + '/versions.json').then((res) => {
         console.log('res.data = ', res.data)
         this.Pages = res.data
+        this.showVersions(res.data)
         this.showPage(0)
       })
     },
+    showVersions(pages) {
+      this.versions = []
+      for (let idx in pages) {
+        let page = pages[idx]
+        this.versions.push(
+          {
+            index: idx,
+            version: page.version
+          }
+        )
+      }
+      console.log("version", this.versions)
+    },
     showPage(index) {
+      this.nowVersion = this.versions[index]
       this.Page = this.Pages[index]
       axios.get(this.Page.path).then((res) => {
         console.log('res.data = ', res.data)
@@ -170,6 +207,20 @@ export default {
       val.index = cards.length
       cards.push(val)
       console.log(cards, this.cards_0, this.cards_1)
+    },
+    selectVersion(versionIdx) {
+      this.showPage(versionIdx)
+    },
+    goBack() {
+      if (this.beforeMenuItem.length == 0) {
+        return
+      }
+      this.nowMenuItem = this.beforeMenuItem.pop()
+      axios.get(this.nowMenuItem.path + '/versions.json').then((res) => {
+        this.Pages = res.data
+        this.showVersions(res.data)
+        this.showPage(0)
+      })
     }
   }
 }

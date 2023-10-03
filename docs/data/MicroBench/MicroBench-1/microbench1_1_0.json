@@ -1,0 +1,27 @@
+{
+  "echart_main": {
+    "height": "570px",
+    "title": "My Chart Main",
+    "layers": ["layer0","layer1"],
+    "totalValue": 100, 
+    "data": [
+      {
+        "name": "totalSlots",
+        "value": 100,
+        "layer": "layer0"
+      },
+      {
+        "name": "BackEnd",
+        "value": 30,
+        "layer": "layer1"
+     }
+    ]
+  },
+  "cards": [
+    {
+      "type": "text",
+      "head": "卡片标题-文字",
+      "body": "卡片正文卡片正文卡片正文 microbench1_1_0"
+    }
+  ]
+}

@@ -2,7 +2,7 @@
   "echart_main": {
     "height": "570px",
     "title": "My Chart Main",
-    "layers": ["layer0","layer1","layer2","layer3"],
+    "layers": ["layer0","layer1"],
     "totalValue": 100, 
     "data": [
       {
@@ -26,12 +26,12 @@
     {
       "type": "image",
       "head": "卡片标题-图片",
-      "path": "./data/Coremork/example.jfif"
+      "path": "./data/Coremark/example.jfif"
     },
     {
       "type": "image",
       "head": "卡片标题-图片",
-      "path": "./data/Coremork/example.jfif",
+      "path": "./data/Coremark/example.jfif",
       "height": "200px"
     },
     {
