@@ -80,7 +80,8 @@ export default {
       cards_1: [],
       beforeMenuItem: [],
       versions: [],
-      nowVersion: {}
+      nowVersion: {},
+      echartMainTotalValue: 1
     }
   },
   components: {
@@ -142,6 +143,7 @@ export default {
     showEchartMain(val) {
       let echartMainLayers = val.layers
       let echartMainDataList = []
+      this.echartMainTotalValue = val.totalValue
       for (let index in val.data) {
         let data = val.data[index]
         let echartMainData = {
@@ -149,7 +151,8 @@ export default {
           type: 'bar',
           stack: 'total',
           label: {
-            show: true
+            show: true,
+            formatter: `${data.value}(${(data.value / val.totalValue * 100).toFixed(2)}%)`
           },
           emphasis: {
             focus: 'series'
