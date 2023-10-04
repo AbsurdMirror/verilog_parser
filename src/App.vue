@@ -65,7 +65,6 @@ import myMenus from './components/my_menus.vue'
 import myCard from './components/my_card.vue'
 import axios from 'axios'  // 安装axios后引入
 import * as echarts from 'echarts'
-import { ElMessage } from 'element-plus';
 
 var echartMainGlobal;
 export default {
@@ -161,20 +160,71 @@ export default {
         }
         echartMainDataList.push(echartMainData)
       }
+      let echartMainTotalValue = this.echartMainTotalValue
       let echartMainOption = {
         title: {
           text: val.title,
         },
         tooltip: {
           trigger: 'axis',
+          // extraCssText:'width:150px;',
+          formatter: function (params) {
+            console.log(params)
+            let htmlRes = ''
+            for (let idx in params) {
+              let param = params[idx]
+              if (idx == 0) {
+                htmlRes += `
+                <div style="margin-top:3px">${param.name}</div>
+                <table>
+                `
+              }
+              console.log(param.data[0])
+              let value = param.data[0]
+              let percent = (value / echartMainTotalValue * 100).toFixed(2)
+              htmlRes += `
+              <tr>
+                <td>
+                  <div 
+                    style="
+                      width: 10px;
+                      height: 10px;
+                      background-color: ${param.color};
+                      display: inline-block;
+                      border-radius: 50%;
+                    "
+                  ></div>
+                  <div 
+                    style="
+                      width: 2px;
+                      height: 10px;
+                      display: inline-block;
+                    "
+                  ></div>
+                  ${param.seriesName}
+                </td>
+                <td style="font-weight: bold; padding: 0 6px 0 15px">${value}</td>
+                <td style="font-weight: bold; padding: 0">
+                  <span style="font-style:italic;">${percent}%</span>
+                </td>
+              </tr>
+
+              <div style="margin-top:7px">
+              </div>`
+            }
+            htmlRes += `</table>`
+            console.log('html:', htmlRes)
+            return htmlRes
+          },
           axisPointer: {
             // Use axis to trigger tooltip
-            type: 'line' // 'shadow' as default; can also be 'line' or 'shadow'
+            type: 'shadow' // 'shadow' as default; can also be 'line' or 'shadow'
           }
         },
         legend: {
           type: 'scroll',
-          right: 0
+          right: 0,
+          top: 30
         },
         grid: {
           left: '3%',
@@ -194,6 +244,7 @@ export default {
       console.log("optiomn:", echartMainOption)
 
       this.echartMainHeight = val.height
+      echartMainGlobal.clear()
       echartMainGlobal.setOption(echartMainOption)
       echartMainGlobal.resize({ height: val.height })
 
@@ -235,5 +286,18 @@ body,
 #app,
 .el-container {
   height: 100%;
+}
+
+.echart_tooltip_cycle {
+  margin: 0px;
+  padding: 0px;
+  line-height: 5px;
+}
+
+.picture {
+  width: 3px;
+  height: 3px;
+  background-color: red;
+  border-radius: 1.5px;
 }
 </style>

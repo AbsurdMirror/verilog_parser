@@ -2,7 +2,7 @@
   "echart_main": {
     "height": "570px",
     "title": "My Chart Main",
-    "layers": ["layer0","layer1"],
+    "layers": ["layer0","layer1","layer3"],
     "totalValue": 100, 
     "data": [
       {
