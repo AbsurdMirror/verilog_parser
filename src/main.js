@@ -1,5 +1,7 @@
 import './assets/main.css'
+import "tabulator-tables"
 import { createApp } from 'vue'
+
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import App from './App.vue'
 

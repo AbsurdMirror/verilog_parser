@@ -1,0 +1,8 @@
+[
+    {
+        "module_name": "ct_ifu_top",
+        "instance_name": "U_ct_ifu_top",
+        "path": "./rtl/ct_ifu_top.v",
+        "prefix": "ifu"
+    }
+]
